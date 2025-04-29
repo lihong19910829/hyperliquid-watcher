@@ -1,18 +1,19 @@
+# -*- coding: utf-8 -*-
 import requests
 import time
 import os
 
-# ¼àÌıµØÖ·ÁĞ±í£¨¿ÉÎŞÏŞÀ©Õ¹£©
+# ç›‘å¬åœ°å€åˆ—è¡¨ï¼ˆå¯æ— é™æ‰©å±•ï¼‰
 TARGET_ADDRESSES = [
 "0x1c95463aec3666f5f766aed360de86b56110d18f"
-# ¼ÌĞø¼Ó
+# ç»§ç»­åŠ 
 ]
 
-# TelegramÅäÖÃ
+# Telegramé…ç½®
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-# ÉÏ´Î³É½»¼ÇÂ¼
+# ä¸Šæ¬¡æˆäº¤è®°å½•
 last_fill_ids = {address: None for address in TARGET_ADDRESSES}
 
 def send_telegram_message(text):
@@ -38,7 +39,7 @@ side = latest_fill.get("side")
 coin = latest_fill.get("coin")
 price = latest_fill.get("price")
 sz = latest_fill.get("sz")
-message = f"[Hyperliquid ³É½»ÌáĞÑ]\nµØÖ·: {address}\n·½Ïò: {side}\n±ÒÖÖ: {coin}\n¼Û¸ñ: {price}\nÊıÁ¿: {sz}"
+message = f"[Hyperliquid æˆäº¤æé†’]\nåœ°å€: {address}\næ–¹å‘: {side}\nå¸ç§: {coin}\nä»·æ ¼: {price}\næ•°é‡: {sz}"
 send_telegram_message(message)
 
 def main():
@@ -47,7 +48,7 @@ try:
 for address in TARGET_ADDRESSES:
 check_fills(address)
 except Exception as e:
-print(f"³ö´íÁË: {e}")
+print(f"å‡ºé”™äº†: {e}")
 time.sleep(5)
 
 if __name__ == "__main__":
