@@ -1,4 +1,51 @@
 # -*- coding: utf-8 -*-
+# 放在 monitor.py 最顶部
+import os
+import requests
+
+def test_telegram():
+    print(" 正在测试 Telegram 推送功能...")
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+    "chat_id": chat_id,
+    "text": "✅ Telegram 推送测试成功！"
+    }
+    try:
+        res = requests.post(url, json=payload)
+        res.raise_for_status()
+        print("✅ Telegram 消息成功发送！")
+    except Exception as e:
+        print(" Telegram 推送失败：", e)
+
+def test_hyperliquid():
+    print(" 正在测试 Hyperliquid API...")
+    addresses = os.getenv("WALLET_ADDRESSES", "").split(",")
+    test_address = addresses[0] if addresses else "0x0000000000000000000000000000000000000000"
+    url = "https://api.hyperliquid.xyz/info"
+    payload = {
+    "type": "user",
+    "user": test_address
+    }
+    try:
+        res = requests.post(url, json=payload)
+        res.raise_for_status()
+        data = res.json()
+        if "assetPositions" in data:
+            print(f"✅ Hyperliquid 地址查询成功：{test_address}")
+        else:
+            print("️ Hyperliquid 返回了无效结构，请检查地址")
+    except Exception as e:
+        print(" Hyperliquid 请求失败：", e)
+
+# 只运行测试，部署后自动退出，不进入正式监控
+if __name__ == "__main__":
+    test_telegram()
+    print()
+    test_hyperliquid()
+    exit(0)
+
 # --- 保持 Render Web Service 存活的端口监听 ---
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
