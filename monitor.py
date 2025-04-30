@@ -40,7 +40,7 @@ def send_telegram_message(message):
 # ===== 主逻辑 =====
 def main():
     last_fill_ids = {}
-    send_telegram_message("测试推送消息：Railway 运行成功")
+
     while True:
         for address in MONITORED_ADDRESSES:
             result = get_user_fills(address)
