@@ -1,4 +1,21 @@
 # -*- coding: utf-8 -*-
+# --- 保持 Render Web Service 存活的端口监听 ---
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+class SimpleHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'OK')
+
+def run_server():
+    server = HTTPServer(('0.0.0.0', 10000), SimpleHandler)
+    server.serve_forever()
+
+threading.Thread(target=run_server, daemon=True).start()
+# --- 监听端口逻辑结束 ---
+
 import requests
 import time
 import os
