@@ -22,7 +22,13 @@ def get_user_fills(address):
     try:
         response = requests.post(url, headers=headers, data=json.dumps(data))
         response.raise_for_status()
-        return response.json()
+        fills = response.json()
+        
+        # >>> 加在这里 <<<
+        print(f"[DEBUG] Address: {address} 返回内容：")
+        print(json.dumps(fills, indent=2))
+
+        return fills
     except Exception as e:
         print(f"[请求失败] Address: {address}, 错误: {e}")
         return None
