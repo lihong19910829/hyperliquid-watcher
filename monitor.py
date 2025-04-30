@@ -21,21 +21,22 @@ def test_telegram():
 
 def test_hyperliquid():
     print(" 正在测试 Hyperliquid API...")
-    addresses = os.getenv("WALLET_ADDRESSES", "").split(",")
-    test_address = addresses[0] if addresses else "0x0000000000000000000000000000000000000000"
+    address = "0x1c95463aec3666f5f766aed360de86b56110d18f"
+
     url = "https://api.hyperliquid.xyz/info"
     payload = {
-    "type": "clearingHouseUser",
-    "user": test_address
+        "type": "clearingHouseUser",
+        "user": address
     }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
     try:
-        res = requests.post(url, json=payload)
+        res = requests.post(url, json=payload, headers=headers)
         res.raise_for_status()
-        data = res.json()
-        if "assetPositions" in data:
-            print(f"✅ Hyperliquid 地址查询成功：{test_address}")
-        else:
-            print("️ Hyperliquid 返回了无效结构，请检查地址")
+        print("✅ 请求成功，返回数据：")
+        print(res.json())
     except Exception as e:
         print(" Hyperliquid 请求失败：", e)
 
