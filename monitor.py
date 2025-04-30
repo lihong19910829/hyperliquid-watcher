@@ -4,8 +4,8 @@ import json
 import time
 
 # ===== 你需要自定义的参数 =====
-TELEGRAM_BOT_TOKEN = "你的Bot Token"
-TELEGRAM_CHAT_ID = "你的Chat ID"
+TELEGRAM_BOT_TOKEN = "8015236527:AAFXe3h5kaxjeF4QSaX3HWtbLKcpzUzgk2w"
+TELEGRAM_CHAT_ID = "6399122975"
 MONITORED_ADDRESSES = [
 "0x1c95463aec3666f5f766aed360de86b56110d18f",
 # 可添加多个地址
