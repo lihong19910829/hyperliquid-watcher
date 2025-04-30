@@ -50,9 +50,9 @@ def main():
     while True:
         for address in MONITORED_ADDRESSES:
             result = get_user_fills(address)
-            if result and "data" in result and len(result["data"]) > 0:
+            if result and "data" in result and result["data"]:
                 latest_fill = result["data"][0]
-                fill_id = latest_fill.get("fillId", str(latest_fill)) # 取唯一标识避免重复
+                fill_id = latest_fill.get("oid") or latest_fill.get("hash")#取唯一标识避免重复
 
                 if address not in last_fill_ids or last_fill_ids[address] != fill_id:
                     last_fill_ids[address] = fill_id
