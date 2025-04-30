@@ -25,7 +25,7 @@ def test_hyperliquid():
     test_address = addresses[0] if addresses else "0x0000000000000000000000000000000000000000"
     url = "https://api.hyperliquid.xyz/info"
     payload = {
-    "type": "user",
+    "type": "clearingHouseUser",
     "user": test_address
     }
     try:
